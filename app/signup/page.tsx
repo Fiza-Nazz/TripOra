@@ -94,7 +94,7 @@ export default function SignupPage() {
 
   const onSubmit = (data: SignupFormData) => {
     console.log("✅ Signup Data:", data);
-    router.push("/"); // 🚀 signup ke baad landing page par
+    router.push("/"); 
   };
 
   return (

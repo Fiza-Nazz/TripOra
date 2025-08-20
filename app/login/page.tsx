@@ -67,7 +67,7 @@ export default function LoginPage() {
   // Handle login submit
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-      router.push("/"); // 🚀 signup ke baad landing page par
+      router.push("/");
   };
 
   return (

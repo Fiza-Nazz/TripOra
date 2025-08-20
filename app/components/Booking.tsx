@@ -55,7 +55,7 @@ const mockHotels: Hotel[] = [
   { id: "2", name: "Golden Stay", location: "Lahore", price: 20000, rating: 4.8, amenities: ["WiFi", "Spa", "Breakfast"], image: "/gold.png", distance: 3.0 },
   { id: "3", name: "Pearl Palace", location: "Islamabad", price: 18000, rating: 4.2, amenities: ["WiFi", "Pool", "Parking"], image: "/pearl.png", distance: 1.8 },
   { id: "4", name: "Royal Retreat", location: "Karachi", price: 25000, rating: 4.9, amenities: ["WiFi", "Spa", "Gym", "Breakfast"], image: "/royal.png", distance: 1.5 },
-  { id: "5", name: "Makkah Towers", location: "Makkah", price: 35000, rating: 4.7, amenities: ["WiZi", "Prayer Room", "Breakfast"], image: "/makkah.png", distance: 0.5 },
+  { id: "5", name: "Makkah Towers", location: "Makkah", price: 35000, rating: 4.7, amenities: ["WiFi", "Prayer Room", "Breakfast"], image: "/makkah.png", distance: 0.5 },
   { id: "6", name: "Madinah Hilton", location: "Madinah", price: 30000, rating: 4.6, amenities: ["WiFi", "Shuttle", "Prayer Room"], image: "/madinah.png", distance: 0.7 },
   { id: "7", name: "Burj Al Arab", location: "Dubai", price: 100000, rating: 5.0, amenities: ["WiFi", "Spa", "Pool", "Butler"], image: "/burj.png", distance: 4.0 },
   { id: "8", name: "Atlantis The Palm", location: "Dubai", price: 85000, rating: 4.9, amenities: ["WiFi", "Aquarium", "Pool"], image: "/atlantis.png", distance: 5.0 },
@@ -242,10 +242,11 @@ const Booking: React.FC = () => {
     if (typeof window === "undefined") return;
 
     const cards = document.querySelectorAll<HTMLElement>(".hotel-card, .history-card");
-    cards.forEach((card) => {
-      if (!card) return; // Ensure card exists
 
-      const handleMouseMove = (e: MouseEvent) => {
+    cards.forEach((card) => {
+      if (!card) return;
+
+      const handleMouseMove = (e: globalThis.MouseEvent) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
@@ -268,12 +269,12 @@ const Booking: React.FC = () => {
         });
       };
 
-      card.addEventListener("mousemove", handleMouseMove as EventListener);
-      card.addEventListener("mouseleave", handleMouseLeave as EventListener);
+      card.addEventListener("mousemove", handleMouseMove);
+      card.addEventListener("mouseleave", handleMouseLeave);
 
       return () => {
-        card.removeEventListener("mousemove", handleMouseMove as EventListener);
-        card.removeEventListener("mouseleave", handleMouseLeave as EventListener);
+        card.removeEventListener("mousemove", handleMouseMove);
+        card.removeEventListener("mouseleave", handleMouseLeave);
       };
     });
   }, [filteredHotels, bookingHistory]);

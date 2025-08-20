@@ -1,9 +1,11 @@
-'use client';
+"use client";
+
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { gsap } from "gsap";
+// ✅ Correct import path
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Link from "next/link"; // ✅ Import Next.js Link
+import Link from "next/link";
 
 export default function About() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -65,7 +67,7 @@ export default function About() {
     pointLight.position.set(8, 8, 8);
     scene.add(pointLight);
 
-    // Controls
+    // ✅ OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
@@ -83,6 +85,7 @@ export default function About() {
 
     // Resize
     const handleResize = () => {
+      if (!mount) return;
       camera.aspect = mount.clientWidth / mount.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(mount.clientWidth, mount.clientHeight);
@@ -91,7 +94,10 @@ export default function About() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      mount.removeChild(renderer.domElement);
+      if (mount && renderer.domElement) {
+        mount.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
       controls.dispose();
     };
   }, []);
@@ -135,8 +141,8 @@ export default function About() {
             Ready to Explore?
           </h2>
           <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of travelers who trust TravelXplore to turn their
-            dreams into reality. Start your journey today!
+            Join thousands of travelers who trust Tripora to turn their dreams
+            into reality. Start your journey today!
           </p>
           <Link
             href="/booking"
